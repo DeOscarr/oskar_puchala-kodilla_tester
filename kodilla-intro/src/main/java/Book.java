@@ -2,7 +2,7 @@ public class Book {
     private String author;
     private String title;
 
-    public Book(String author, String title) {
+    public Book(String author, String title) { //konstruktor
         this.author = author;
         this.title = title;
     }

@@ -3,7 +3,7 @@ import java.util.Random;
 public class RandomNumbers {
     public static void main(String[] args) {
         Random random = new Random();
-        int min = 0;
+        int min = 30;
         int max = 0;
         int sum = 0;
         while (sum <5000) {

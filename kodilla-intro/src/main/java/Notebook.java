@@ -1,12 +1,12 @@
 public class Notebook {
-    int weight;
+    int weight; // okreslamy jakie zmienne ma oczekiwac klasa od konstruktora; okreslamy atrybuty klasy
     int price;
     int year;
 
-    public Notebook(int weight, int price, int year) {
-        this.weight = weight;
-        this.price = price;
-        this.year = year;
+    public Notebook(int weight, int price, int year) { //konstruktor, typ i nazwa argumentow konstruktora
+        this.weight = weight; //mowi konstuktorowi zeby przypisal wartosci argumentow ktore zostaly mu przekazane do atrybutow klasy
+        this.price = price; //slowo this oznacza ze w ramach konstruktora chcemy sie odwolac do atrybutow klasy
+        this.year = year; // jesli to pominiemy kompilator nie wie ktora zmienna do ktorej przypisac
     }
 
     public void checkPrice() {

@@ -18,11 +18,11 @@ public class Colors {
                 case "F":
                     return "Fioletowy";
                 default:
-                    System.out.println("Please pick another letter.");
+                    System.out.println("Please pick another letter."); //dlaczego tutaj nie jest potrzebne break?
             }
         }
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) { // jak sprawić zeby program sie nie zamykal a wracal do poczatku?
         String result = getUserSelection();
         System.out.println(result);
     }

@@ -1,22 +1,22 @@
 public class AdvCalculator {
     public double calculate() {
         String userSelected = UserDialogs.getUserSelection();
-        int a = UserDialogs.getValue();
+        double a = UserDialogs.getValue();
         int b = UserDialogs.getValue();
-        double result = 0;
+        double result =0;
         switch (userSelected) {
             case "ADD":
                 result = a + b;
-                break;                     // [1]
+                break;
             case "SUB":
                 result = a - b;
-                break;                     // [2]
+                break;
             case "DIV":
                 result = a / b;
-                break;                     // [3]
+                break;
             case "MUL":
                 result = a * b;
-                break;                     // [4]
+                break;
         }
         return result;
     }

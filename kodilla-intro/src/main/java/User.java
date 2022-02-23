@@ -8,18 +8,18 @@ public class User {
     }
 
     public static void main (String [] Args) {
-        User oskar = new User("Oskar", 24);
+        User oskar = new User("Oskar", 24); //obiekty
         User mateusz = new User("Mateusz", 26);
         User adrian = new User("Adrian", 36);
         User marta = new User("Marta", 40);
         User justyna = new User("Justyna", 19);
-        User[] users = {oskar, mateusz, adrian, marta, justyna};
+        User[] users = {oskar, mateusz, adrian, marta, justyna}; // przypisuje obiekty do tablicy
 
-        int sum = 0;
+        int sum = 0; //kiedy przypisujemy wartosc zmiennej a kiedy nie?
         double avg = 0;
 
         for (int i = 0; i < users.length; i++) {
-            sum += users[i].age;
+            sum += users[i].age; // += oznacza to samo co sum=sum+users[i].age
         }
         avg = (double) sum / users.length;
 
