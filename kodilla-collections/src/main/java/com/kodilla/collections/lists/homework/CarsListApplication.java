@@ -20,6 +20,7 @@ public class CarsListApplication {
         RollsRoyce rollsRoyce = new RollsRoyce(60);
         cars.add(rollsRoyce);
 
+
          for (Car car : cars){
              CarUtils.describeCar(car);
          }
@@ -28,7 +29,7 @@ public class CarsListApplication {
          cars.remove(rollsRoyce);
 
         System.out.println("-----------------------------");
-        System.out.println("This is the size of our list after removing two cars: "+cars.size()); //od 2
+        System.out.println("This is the size of our list after removing two cars: "+cars.size());
 
         for (Car car : cars) {
             CarUtils.describeCar(car);

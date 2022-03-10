@@ -25,7 +25,7 @@ public class Order {
     @Override public boolean equals(Object o) { ////////////////////////////////////////////////////
         if (this == o)
             return true;
-        if (o == null || getClass() != o.getClass())
+        if (o == null || getClass() != o.getClass()) //getClass pobiera nazwe klasy wraz z nazwa pakietu/ zwroci false jesli porownujemy rozne od siebie klasy/ !=o.getClass oznacza ze jest rozne
             return false;
         Order order = (Order) o;
         return Double.compare(order.quantity, quantity) == 0
@@ -40,7 +40,7 @@ public class Order {
     @Override
     public String toString() {
         return "Order{" +
-                "orderNumber='" + orderNumber + '\'' +
+                "orderNumber='" + orderNumber + '\'' + //'\'' escape character 
                 ", productName='" + productName + '\'' +
                 ", quantity=" + quantity +
                 '}';

@@ -17,7 +17,7 @@ public class Dictionary {
         return dictionary.getOrDefault(polishWord, Collections.emptyList());
     }
 
-    public List<EnglishWord> findEnglishWords(String polishWord, PartOfSpeech partOfSpeech){
+    public List<EnglishWord> findEnglishWords(String polishWord, PartOfSpeech partOfSpeech){ //argumenty=parametry
         List<EnglishWord> result = new ArrayList<>();
         for (EnglishWord englishWord : dictionary.getOrDefault(polishWord, Collections.emptyList())){
             if (englishWord.getPartOfSpeech().equals(partOfSpeech))
@@ -30,3 +30,5 @@ public class Dictionary {
         return dictionary.size();
     }
 }
+
+//

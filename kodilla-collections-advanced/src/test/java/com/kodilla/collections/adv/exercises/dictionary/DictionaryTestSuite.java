@@ -11,12 +11,12 @@ public class DictionaryTestSuite {
 
     @Test
     public void testAddWord() {
-        // given
+        // given // tutaj jest przygotowanie danych
         Dictionary dictionary = new Dictionary();
         String polishWord = "stos";
         EnglishWord englishWord = new EnglishWord(PartOfSpeech.NOUN, "stack");
         //when
-        dictionary.addWord(polishWord, englishWord);
+        dictionary.addWord(polishWord, englishWord); //tutaj wywolujemy akcje ktora chcemy prztestowac
         //then
         assertEquals(1, dictionary.size());
     }
