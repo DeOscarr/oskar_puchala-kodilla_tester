@@ -6,88 +6,96 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BankTestSuite {
 
+    private CashMachine bankomat = new CashMachine();
+    private CashMachine bankomat1 = new CashMachine();
+    private CashMachine bankomat2 = new CashMachine();
+
     @Test
-    public void shouldCalculateDepositsAverage() {
-        Bank bank = new Bank(3);
-        bank.addMachine(5);
-        bank.addMachine(5);
-        bank.addMachine(5);
-        bank.deposit(0, 100.0);
-        bank.deposit(1, 200.0);
-        bank.deposit(1, 300.0);
-        bank.deposit(2, 400.0);
-        bank.deposit(2, 500.0);
-        bank.deposit(2, 600.0);
-        assertEquals(350.0, bank.averageDepositCashMachine());
+    public void testAddCashMachine() {
+        Bank bank = new Bank();
+        bank.addCashMachine(bankomat);
+        bank.addCashMachine(bankomat1);
+        bank.addCashMachine(bankomat2);
+        assertEquals(3, bank.getCashMachinesNumber());
     }
 
     @Test
-    public void shouldCalculateWithdrawAverage() {
-        Bank bank = new Bank(2);
-        bank.addMachine(4);
-        bank.addMachine(6);
-        bank.withdraw(0, 100.0);
-        bank.withdraw(0, 200.0);
-        bank.withdraw(0, 300.0);
-        bank.withdraw(0, 400.0);
-        bank.withdraw(1, 500.0);
-        bank.withdraw(1, 600.0);
-        bank.withdraw(1, 700.0);
-        assertEquals(400.0, bank.averageWithdrawCashMachine(), 0.01);
+    public void testGetBalanceOfAllCashMachine() {
+        Bank bank = new Bank();
+
+        bankomat.addTransaction(300);
+        bankomat.addTransaction(200);
+        bankomat.addTransaction(-100);
+        bankomat.addTransaction(-200);
+
+        bankomat1.addTransaction(30);
+        bankomat1.addTransaction(20);
+        bankomat1.addTransaction(-10);
+        bankomat1.addTransaction(-20);
+
+        bankomat2.addTransaction(3000);
+        bankomat2.addTransaction(2000);
+        bankomat2.addTransaction(-1000);
+        bankomat2.addTransaction(-20000); // Transakcja odrzucona
+
+        bank.addCashMachine(bankomat);
+        bank.addCashMachine(bankomat1);
+        bank.addCashMachine(bankomat2);
+        assertEquals(4220, bank.getBalanceOfAllCashMachines());
     }
 
     @Test
-    public void shouldWorkBankWithZeroCashMachine() {
-        Bank bank = new Bank(1);
-        assertEquals(0, bank.balance());
-        assertEquals(0, bank.averageWithdrawCashMachine());
-        assertEquals(0, bank.averageDepositCashMachine());
+    public void testGetAvgPayment() {
+        Bank bank = new Bank();
+
+        bankomat.addTransaction(300);
+        bankomat.addTransaction(200);
+        bankomat.addTransaction(-500);
+        bankomat.addTransaction(-200);
+
+        bank.addCashMachine(bankomat);
+        assertEquals(250, bank.getAvgPayment(bankomat), 0.1);
     }
 
     @Test
-    public void shouldCountDeposits() {
-        Bank bank = new Bank(3);
-        bank.addMachine(3);
-        bank.addMachine(2);
-        bank.deposit(0, 100.0);
-        bank.deposit(0, 100.0);
-        bank.deposit(0, 100.0);
-        bank.deposit(1, 200.0);
-        bank.deposit(1, 200.0);
-        assertEquals(5, bank.depositCount());
+    public void testGetAvgPayoff() {
+        Bank bank = new Bank();
+
+        bankomat.addTransaction(200);
+        bankomat.addTransaction(-300); // Transakcja anulowana
+        bankomat.addTransaction(500);
+        bankomat.addTransaction(-200);
+
+        bankomat.addTransaction(-500); // Wypłata do 0
+        bank.addCashMachine(bankomat);
+        assertEquals(-350, bank.getAvgPayoff(bankomat), 0.1);
     }
 
     @Test
-    public void shouldCountWithdraw() {
-        Bank bank = new Bank(3);
-        bank.addMachine(3);
-        bank.addMachine(2);
-        bank.withdraw(0, 100.0);
-        bank.withdraw(0, 100.0);
-        bank.withdraw(1, 100.0);
-        assertEquals(3, bank.withdrawCount());
+    public void testGetPayment() {
+        Bank bank = new Bank();
+
+        bankomat.addTransaction(200);
+        bankomat.addTransaction(-300); // Transakcja anulowana
+        bankomat.addTransaction(500);
+        bankomat.addTransaction(-200);
+
+        bankomat.addTransaction(-500); // Wypłata do 0
+        bank.addCashMachine(bankomat);
+        assertEquals(2, bank.getPayment(bankomat));
     }
 
     @Test
-    public void shouldSumDeposit() {
-        Bank bank = new Bank(2);
-        bank.addMachine(2);
-        bank.addMachine(2);
-        bank.deposit(0, 100.0);
-        bank.deposit(0, 1000.0);
-        bank.deposit(1, 200.0);
-        bank.deposit(1, 200.0);
-        assertEquals(1500.0, bank.depositSum());
-    }
+    public void testGetPayoff() {
+        Bank bank = new Bank();
 
-    @Test
-    public void shouldSumWithdrawals() {
-        Bank bank = new Bank(2);
-        bank.addMachine(2);
-        bank.addMachine(2);
-        bank.withdraw(0, 1000.0);
-        bank.withdraw(0, 100.0);
-        bank.withdraw(1, 100.0);
-        assertEquals(1200, bank.withdrawSum());
+        bankomat.addTransaction(200);
+        bankomat.addTransaction(-300); // Transakcja anulowana
+        bankomat.addTransaction(500);
+        bankomat.addTransaction(-200);
+
+        bankomat.addTransaction(-500); // Wypłata do 0
+        bank.addCashMachine(bankomat);
+        assertEquals(2, bank.getPayoff(bankomat));
     }
 }

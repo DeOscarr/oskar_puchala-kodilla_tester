@@ -1,90 +1,100 @@
 package com.kodilla.bank.homework;
 
 public class Bank {
-    CashMachine[] cashMachines;
+    private CashMachine[] cashMachines;
+    private int cashMachinesNumber;
 
-    public Bank(int size) {
-        cashMachines = new CashMachine[size];
+    public Bank() {
+        this.cashMachinesNumber = 0;
+        this.cashMachines = new CashMachine[0];
     }
 
-    public void deposit(int cashMachineIndex, double amount) {
-        cashMachines[cashMachineIndex].depositMoney(amount);
+    public void addCashMachine(CashMachine cashMachines) {
+        this.cashMachinesNumber++;
+        CashMachine[] newTab = new CashMachine[this.cashMachinesNumber];
+        System.arraycopy(this.cashMachines, 0, newTab, 0, this.cashMachines.length);
+        newTab[this.cashMachinesNumber - 1] = cashMachines;
+
+        this.cashMachines = newTab;
     }
 
-    public void withdraw(int cashMachineIndex, double amount) {
-        cashMachines[cashMachineIndex].withdrawMoney(amount);
+    public int getBalanceOfAllCashMachines() {
+        int sum = 0;
+        for (int i = 0; i < cashMachinesNumber; i++)
+            sum = sum + cashMachines[i].getBalance();
+
+        return sum;
     }
 
-    public void addMachine(int operationSize) {
-        for (int i = 0; i < cashMachines.length; i++) {
-            if (cashMachines[i] == null) {
-                cashMachines[i] = new CashMachine(operationSize);
-                return;
-            }
-        }
-    }
-
-    public double balance() {
-        double balance = 0;
-        for (CashMachine cashMachine : cashMachines) {
-            if (cashMachine != null) {
-                balance += cashMachine.balance();
-            }
-        }
-        return balance;
-    }
-
-    public double depositSum() {
-        double depositSum = 0;
-        for (CashMachine cashMachine : cashMachines) {
-            if (cashMachine != null) {
-                depositSum += cashMachine.depositSum();
-            }
-        }
-        return depositSum;
-    }
-
-    public double withdrawSum() {
-        double withdrawSum = 0;
-        for (CashMachine cashMachine : cashMachines) {
-            if (cashMachine != null) {
-                withdrawSum += cashMachine.withdrawSum();
-            }
-        }
-        return withdrawSum;
-    }
-
-    public int depositCount() {
+    public double getAvgPayment(CashMachine cashMachines) {
+        double sum = 0;
         int count = 0;
-        for (CashMachine cashMachine : cashMachines) {
-            if (cashMachine != null) {
-                count += cashMachine.depositCount();
+        for (int i = 0; i < cashMachines.getCashMachineSize(); i++) {
+            if (cashMachines.getCashMachineTab()[i] > 0) {
+                sum = sum + cashMachines.getCashMachineTab()[i];
+                count++;
             }
         }
-        return count;
+        return sum / count;
     }
 
-    public int withdrawCount() {
+    public double getAvgPayoff(CashMachine cashMachines) {
+        double sum = 0;
         int count = 0;
-        for (CashMachine cashMachine : cashMachines) {
-            if (cashMachine != null) {
-                count += cashMachine.withdrawCount();
+        for (int i = 0; i < cashMachines.getCashMachineSize(); i++) {
+            if (cashMachines.getCashMachineTab()[i] < 0) {
+                sum = sum + cashMachines.getCashMachineTab()[i];
+                count++;
             }
         }
-        return count;
+        return sum / count;
     }
 
-    public double averageDepositCashMachine() {
-        if (depositCount() == 0) {
-            return 0;
+    public int getPayment(CashMachine cashMachines) {
+        int sum = 0;
+        for (int i = 0; i < cashMachines.getCashMachineSize(); i++) {
+            if (cashMachines.getCashMachineTab()[i] > 0) {
+                sum++;
+            }
         }
-        return depositSum() / depositCount();
+        return sum;
     }
 
-    public double averageWithdrawCashMachine() {
-        if (withdrawCount() == 0) {
-            return 0;
+    public int getPayoff(CashMachine cashMachines) {
+        int sum = 0;
+        for (int i = 0; i < cashMachines.getCashMachineSize(); i++) {
+            if (cashMachines.getCashMachineTab()[i] < 0) {
+                sum++;
+            }
         }
-        return withdrawSum() / withdrawCount();
+        return sum;
+    }
+
+    public int getPaymentOfAllCashMachines() {
+        int sum = 0;
+        for (int i = 0; i < cashMachinesNumber; i++) {
+            for (int x = 0; x < cashMachines[i].getCashMachineSize(); x++) {
+                if (cashMachines[i].getCashMachineTab()[x] > 0) {
+                    sum++;
+                }
+            }
+        }
+        return sum;
+    }
+
+    public int getPayoffOfAllCashMachines() {
+        int sum = 0;
+        for (int i = 0; i < cashMachinesNumber; i++) {
+            for (int x = 0; x < cashMachines[i].getCashMachineSize(); x++) {
+                if (cashMachines[i].getCashMachineTab()[x] < 0) {
+                    sum++;
+                }
+            }
+        }
+        return sum;
+    }
+
+    public int getCashMachinesNumber() {
+        return cashMachinesNumber;
     }
 }

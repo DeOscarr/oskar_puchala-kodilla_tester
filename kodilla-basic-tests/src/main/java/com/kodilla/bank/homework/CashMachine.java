@@ -1,74 +1,44 @@
 package com.kodilla.bank.homework;
 
 public class CashMachine {
-    private double[] operations;
-    private int operationsCount;
+    private int[] cashMachineTab;
+    private int cashMachineSize;
 
-    public CashMachine(int size) {
-        operations = new double[size];
-        operationsCount = 0;
+    public CashMachine() {
+        this.cashMachineSize = 0;
+        this.cashMachineTab = new int[0];
     }
 
-    private void runOperation(double amount) {
-        if (operationsCount < operations.length) {
-            operations[operationsCount] = amount;
-            operationsCount++;
+    public void addTransaction(int value) {
+        if (getBalance() + value >= 0) {
+            this.cashMachineSize++;
+            int[] newTab = new int[this.cashMachineSize];
+            System.arraycopy(cashMachineTab, 0, newTab, 0, cashMachineTab.length);
+            newTab[this.cashMachineSize - 1] = value;
+
+            this.cashMachineTab = newTab;
+        } else {
+            System.out.println("Cash Machine has not enough money");
         }
     }
 
-    public void depositMoney(double amount) {
-        runOperation(amount);
-    }
+    public int getBalance() {
+        int sum = 0;
+        for (int i = 0; i < cashMachineSize; i++)
+            sum = sum + cashMachineTab[i];
 
-    public void withdrawMoney(double amount) {
-        runOperation(-amount);
-    }
-
-    public int depositCount() {
-        int count = 0;
-        for (int i = 0; i < operationsCount; i++) {
-            if (operations[i] > 0) {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    public int withdrawCount() {
-        int count = 0;
-        for (int i = 0; i < operationsCount; i++) {
-            if (operations[i] < 0) {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    public double depositSum() {
-        double sum = 0;
-        for (int i = 0; i < operationsCount; i++) {
-            if (operations[i] > 0) {
-                sum += operations[i];
-            }
-        }
         return sum;
     }
 
-    public double withdrawSum() {
-        double sum = 0;
-        for (int i = 0; i < operationsCount; i++) {
-            if (operations[i] < 0) {
-                sum += -operations[i];
-            }
-        }
-        return sum;
+    public int getNumberOfTrans() {
+        return cashMachineSize;
     }
 
-    public double balance() {
-        return depositSum() - withdrawSum();
+    public int[] getCashMachineTab() {
+        return cashMachineTab;
     }
 
-    public int getOperationsCount() {
-        return operationsCount;
+    public int getCashMachineSize() {
+        return cashMachineSize;
     }
 }
